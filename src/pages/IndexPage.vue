@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { useQuasar } from 'quasar';
-import { calculateCircleArea } from 'src/stateless-logic/calculate';
+import { calculateCircleArea } from 'src/stateless-logic/geometry';
 import { computed, ref } from 'vue';
 
 const $q = useQuasar();
