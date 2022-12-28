@@ -5,7 +5,7 @@
       v-for="figure in planeFigures"
       :key="figure"
       type="number"
-      :modelValue="calculateFromArea[figure](area, notifyWarning)"
+      :modelValue="calculations[figure]"
       :label="label[figure]"
       readonly
     />
@@ -23,6 +23,18 @@ const notifyWarning = (message: string) => $q.notify({ type: 'warning', message 
 const notifyError = (message: string) => $q.notify({ type: 'negative', message });
 
 const area = ref<number | ''>(0);
+
+const calculate = (): Record<PlaneFigure, number | ''> => ({
+  circle: calculateFromArea['circle'](area.value, notifyWarning),
+  square: calculateFromArea['square'](area.value, notifyWarning),
+  'equilateral triangle': calculateFromArea['equilateral triangle'](area.value, notifyWarning),
+});
+
+const calculations = ref(calculate());
+
+watchEffect(() => {
+  calculations.value = calculate();
+});
 
 const clearArea = () => {
   area.value = '';
